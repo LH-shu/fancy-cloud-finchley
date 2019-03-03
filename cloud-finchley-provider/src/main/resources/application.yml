@@ -1,0 +1,27 @@
+server:
+  port: 18004
+spring:
+  application:
+    name: cloud-finchley-provider
+  jpa:
+    generate-ddl: false
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+logging:                                # 配置日志级别，让hibernate打印出执行的SQL
+  level:
+    root: INFO
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:18000/eureka/
+  instance:
+    prefer-ip-address: true
+
+
+# 注：Spring Boot2不能用spring.datasource.schema/data指定初始化SQL脚本，否则与actuator不能共存
+# 原因：https://github.com/spring-projects/spring-boot/issues/13042
+# https://github.com/spring-projects/spring-boot/issues/13539

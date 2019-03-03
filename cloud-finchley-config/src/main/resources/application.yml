@@ -1,0 +1,16 @@
+server:
+  port: 18001
+spring:
+  application:
+    name: cloud-finchley-config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/LH-shu/conf-repository.git
+          username: SmartShuShu@163.com
+          password:
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:18000/eureka/

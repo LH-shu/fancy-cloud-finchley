@@ -1,0 +1,25 @@
+server:
+  port: 18003
+spring:
+  application:
+    name: cloud-finchley-zuul
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:18000/eureka/
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 60000

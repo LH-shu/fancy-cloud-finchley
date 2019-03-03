@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: cloud-finchley-consumer
+  cloud:
+    config:
+      profile: dev
+      label: master
+      discovery:
+        enabled: true                      # 表示使用服务发现组件中的Config Server，而不自己指定Config Server的uri，默认false
+        service-id: cloud-finchley-config  # 指定Config Server在服务发现中的serviceId，默认是configserver
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:18000/eureka/
+
+http:
+  multipart:
+    max-file-size: 2000Mb      # Max file size，默认1M
+    max-request-size: 2500Mb   # Max request size，默认10M
+      

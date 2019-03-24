@@ -1,5 +1,5 @@
 server:
-  port: 18001
+  port: 16002
 spring:
   application:
     name: cloud-finchley-config
@@ -10,7 +10,14 @@ spring:
           uri: https://github.com/LH-shu/conf-repository.git
           username: SmartShuShu@163.com
           password:
+          search-paths: dev,test,prod
 eureka:
   client:
-    serviceUrl:
-      defaultZone: http://localhost:18000/eureka/
+    service-url:
+      defaultZone: ${eureka.url}
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+#    instance-id: 127.0.0.1:${server.port}

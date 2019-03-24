@@ -1,7 +1,7 @@
 spring:
   cloud:
     config:
-      name: cloud-finchley-consumer
+      name: cloud-finchley-provider
       profile: ${spring.cloud.config.profile}
       label: master
       discovery:
@@ -18,14 +18,11 @@ spring:
           auto-create-topics: true
           min-partition-count: 1
       bindings:
-        input:
+        output:
           destination: event-demo
-          group: s1
-          consumer:
-            autoCommitOffset: false
-            concurrency: 1
-            partitioned: false
-
+          content-type: text/plain
+          producer:
+            partitionCount: 1
 
 eureka:
   client:

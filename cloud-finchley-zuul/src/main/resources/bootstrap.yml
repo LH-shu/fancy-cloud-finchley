@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    config:
+      name: cloud-finchley-zuul
+      profile: ${spring.cloud.config.profile}
+      label: master
+      discovery:
+        enabled: true
+        service-id: cloud-finchley-config
+
+
+#注册中心配置
+eureka:
+  client:
+    service-url:
+      defaultZone: ${eureka.url}
+  instance:
+    hostname: 127.0.0.1
+    prefer-ip-address: true
+    instance-id: 127.0.0.1:${server.port}
+

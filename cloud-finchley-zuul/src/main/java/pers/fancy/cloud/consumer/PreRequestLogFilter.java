@@ -1,4 +1,4 @@
-package pers.fancy.cloud.finchley.consumer;
+package pers.fancy.cloud.consumer;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;

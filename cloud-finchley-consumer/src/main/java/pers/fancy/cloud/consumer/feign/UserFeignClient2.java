@@ -1,4 +1,4 @@
-package pers.fancy.cloud.finchley.consumer.feign;
+package pers.fancy.cloud.consumer.feign;
 
 
 import org.springframework.cloud.openfeign.FeignClient;
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import pers.fancy.cloud.finchley.consumer.entity.User;
+import pers.fancy.cloud.consumer.entity.User;
 
 
 @FeignClient(name = "cloud-finchley-provider", fallback = FeignClientFallback.class)

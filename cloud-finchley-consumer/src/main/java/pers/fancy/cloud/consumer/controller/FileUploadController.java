@@ -1,4 +1,4 @@
-package pers.fancy.cloud.finchley.consumer.controller;
+package pers.fancy.cloud.consumer.controller;
 
 import java.io.File;
 import java.io.IOException;

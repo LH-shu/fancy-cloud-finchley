@@ -1,4 +1,4 @@
-package pers.fancy.cloud.finchley.consumer.controller;
+package pers.fancy.cloud.consumer.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;

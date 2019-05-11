@@ -1,4 +1,4 @@
-package pers.fancy.cloud.finchley.consumer.entity;
+package pers.fancy.cloud.consumer.entity;
 
 import java.math.BigDecimal;
 

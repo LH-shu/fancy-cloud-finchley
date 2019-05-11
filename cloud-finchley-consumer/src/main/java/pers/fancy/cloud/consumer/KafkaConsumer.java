@@ -1,4 +1,4 @@
-package pers.fancy.cloud.finchley.consumer;
+package pers.fancy.cloud.consumer;
 
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;

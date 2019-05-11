@@ -1,9 +1,9 @@
-package pers.fancy.cloud.finchley.consumer.provider.controller;
+package pers.fancy.cloud.provider.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pers.fancy.cloud.finchley.consumer.provider.service.SendService;
+import pers.fancy.cloud.provider.service.SendService;
 
 
 /**

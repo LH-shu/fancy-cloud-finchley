@@ -1,0 +1,22 @@
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "dcp_analyzer": {
+          "tokenizer": "dcp_tokenizer"
+        }
+      },
+      "tokenizer": {
+        "dcp_tokenizer": {
+          "type": "ngram",
+          "min_gram": 1,
+          "max_gram": 1,
+          "token_chars": [
+            "letter",
+            "digit"
+          ]
+        }
+      }
+    }
+  }
+}

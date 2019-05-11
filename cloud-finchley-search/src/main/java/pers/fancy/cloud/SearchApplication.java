@@ -6,7 +6,6 @@ import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.netflix.turbine.EnableTurbine;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -20,10 +19,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
-
-
 @EnableDiscoveryClient
-@EnableFeignClients
 @EnableSwagger2
 @EnableHystrix
 @EnableCircuitBreaker
@@ -38,26 +34,22 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 public class SearchApplication {
 
-    /**
-     * main
-     * @param args
-     */
-    public static void main(String[] args){
-        SpringApplication.run(SearchApplication.class,args);
+
+    public static void main(String[] args) {
+        SpringApplication.run(SearchApplication.class, args);
     }
 
     @Bean
     public Docket dcsApi() {
         ApiInfoBuilder apiInfoBuilder = new ApiInfoBuilder();
-        ApiInfo apiInfo = apiInfoBuilder.title("微服务搜索引擎")
-                .description("微服务搜索引擎")
+        ApiInfo apiInfo = apiInfoBuilder.title("搜索引擎")
+                .description("搜索引擎")
                 .version("1.0.0")
-                .contact(new Contact("", "", ""))
+                .contact(new Contact("fancy", "", "SmartShuShu@163.com"))
                 .build();
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo)
-                .select().apis(RequestHandlerSelectors.basePackage("pers.fancy.cloud.search.controller"))
+                .select().apis(RequestHandlerSelectors.basePackage("pers.fancy.cloud.search.web"))
                 .build();
     }
-
 }

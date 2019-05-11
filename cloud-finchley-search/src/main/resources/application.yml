@@ -1,0 +1,26 @@
+server:
+  port: 16004
+
+spring:
+  application:
+    name: cloud-finchley-search
+  messages:
+          basename: i18n/messages
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://127.0.0.1:3306/es
+    username: root
+    password: 316412316
+    driver-class-name: com.mysql.jdbc.Driver
+feign:
+  hystrix:
+    enabled: true
+ribbon:
+  MaxAutoRetriesNextServer: 0
+dcp:
+  elasticsearch:
+    cluster-nodes: 127.0.0.1:9200
+    username: elastic
+    password: vziqWbNF2kU6CTupboPz
+hotWord:
+  time: 7

@@ -1,0 +1,71 @@
+{
+  "properties": {
+
+    "id": {
+      "type": "keyword"
+    },
+    "parentId": {
+      "type": "keyword"
+    },
+    "orgId": {
+      "type": "keyword"
+    },
+    "docType": {
+      "type": "keyword"
+    },
+    "title": {
+      "type": "text",
+      "boost": 5,
+      "index": true,
+      "analyzer": "dcp_analyzer",
+      "search_analyzer": "dcp_analyzer",
+      "index_options" : "offsets"
+    },
+    "content": {
+      "type": "text",
+      "index": true,
+      "analyzer": "dcp_analyzer",
+      "search_analyzer": "dcp_analyzer",
+      "index_options" : "offsets"
+    },
+    "filePath":{
+      "type": "text"
+    },
+    "createTime": {
+      "type": "date",
+      "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+    },
+    "updateTime": {
+      "type": "date",
+      "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+    },
+    "tags":{
+      "type": "text"
+    },
+    "docStatus":{
+      "type": "keyword"
+    },
+    "owner":{
+      "type": "keyword"
+    },
+    "ownerName":{
+      "type": "text"
+    },
+
+    "security":{
+      "type": "keyword"
+    },
+
+
+    "app":{
+      "type": "keyword"
+    },
+    "module":{
+      "type": "keyword"
+    },
+    "url":{
+      "type": "keyword"
+    }
+
+  }
+}

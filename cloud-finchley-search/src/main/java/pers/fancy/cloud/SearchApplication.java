@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import pers.fancy.cloud.search.core.annotation.EnableESTools;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -19,6 +20,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
+@EnableESTools
 @EnableDiscoveryClient
 @EnableSwagger2
 @EnableHystrix
@@ -28,10 +30,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableAsync
 @EnableAspectJAutoProxy
-
-/**
- * @author fancy
- */
 public class SearchApplication {
 
 
@@ -49,7 +47,7 @@ public class SearchApplication {
                 .build();
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo)
-                .select().apis(RequestHandlerSelectors.basePackage("pers.fancy.cloud.search.web"))
+                .select().apis(RequestHandlerSelectors.basePackage("pers.fancy.cloud.search.controller"))
                 .build();
     }
 }

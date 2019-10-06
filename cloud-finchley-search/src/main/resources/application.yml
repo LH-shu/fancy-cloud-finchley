@@ -24,3 +24,5 @@ dcp:
     password: vziqWbNF2kU6CTupboPz
 hotWord:
   time: 7
+elasticsearch:
+  host: 127.0.0.1:9200

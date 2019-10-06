@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * description: Elasticsearch基础功能组件
  **/
-public interface ElasticsearchTemplate<T,M> {
+interface ElasticsearchTemplate<T,M> {
     /**
      * 通过Low Level REST Client 查询
      * https://www.elastic.co/guide/en/elasticsearch/client/java-rest/6.6/java-rest-low-usage-requests.html
@@ -28,20 +28,20 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public Response request(Request request) throws Exception;
+    Response request(Request request) throws Exception;
 
     /**
      * 新增索引
      * @param t
      */
-    public boolean save(T t) throws Exception;
+    boolean save(T t) throws Exception;
 
 
     /**
      * 新增索引集合
      * @param list
      */
-    public BulkResponse save(List<T> list) throws Exception;
+    BulkResponse save(List<T> list) throws Exception;
 
 
     /**
@@ -50,14 +50,14 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public BulkResponse bulkUpdate(List<T> list) throws Exception;
+    BulkResponse bulkUpdate(List<T> list) throws Exception;
 
 
     /**
      * 按照有值字段更新索引
      * @param t
      */
-    public boolean update(T t) throws Exception;
+    boolean update(T t) throws Exception;
 
     /**
      * 根据queryBuilder所查结果，按照有值字段更新索引
@@ -70,19 +70,19 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public BulkResponse batchUpdate(QueryBuilder queryBuilder, T t, Class clazz, int limitcount, boolean asyn) throws Exception;
+    BulkResponse batchUpdate(QueryBuilder queryBuilder, T t, Class clazz, int limitcount, boolean asyn) throws Exception;
 
     /**
      * 覆盖更新索引
      * @param t
      */
-    public boolean updateCover(T t) throws Exception;
+    boolean updateCover(T t) throws Exception;
 
     /**
      * 删除索引
      * @param t
      */
-    public boolean delete(T t) throws Exception;
+    boolean delete(T t) throws Exception;
 
     /**
      * 根据条件删除索引
@@ -92,13 +92,13 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public BulkByScrollResponse deleteByCondition(QueryBuilder queryBuilder, Class<T> clazz) throws Exception;
+    BulkByScrollResponse deleteByCondition(QueryBuilder queryBuilder, Class<T> clazz) throws Exception;
 
     /**
      * 删除索引
      * @param id
      */
-    public boolean deleteById(M id, Class<T> clazz) throws Exception;
+    boolean deleteById(M id, Class<T> clazz) throws Exception;
 
 
     /**
@@ -107,7 +107,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public SearchResponse search(SearchRequest searchRequest) throws Exception;
+    SearchResponse search(SearchRequest searchRequest) throws Exception;
 
     /**
      * 非分页查询
@@ -117,7 +117,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public List<T> search(QueryBuilder queryBuilder, Class<T> clazz) throws Exception;
+    List<T> search(QueryBuilder queryBuilder, Class<T> clazz) throws Exception;
 
     /**
      * 非分页查询(跨索引)
@@ -127,7 +127,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public List<T> search(QueryBuilder queryBuilder, Class<T> clazz, String... indexs) throws Exception;
+    List<T> search(QueryBuilder queryBuilder, Class<T> clazz, String... indexs) throws Exception;
 
 
     /**
@@ -139,7 +139,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public List<T> searchMore(QueryBuilder queryBuilder, int limitSize, Class<T> clazz) throws Exception;
+    List<T> searchMore(QueryBuilder queryBuilder, int limitSize, Class<T> clazz) throws Exception;
 
     /**
      * 非分页查询(跨索引)，指定最大返回条数
@@ -150,7 +150,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public List<T> searchMore(QueryBuilder queryBuilder, int limitSize, Class<T> clazz, String... indexs) throws Exception;
+    List<T> searchMore(QueryBuilder queryBuilder, int limitSize, Class<T> clazz, String... indexs) throws Exception;
 
 
 
@@ -161,7 +161,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public long count(QueryBuilder queryBuilder, Class<T> clazz) throws Exception;
+    long count(QueryBuilder queryBuilder, Class<T> clazz) throws Exception;
 
 
     /**
@@ -171,7 +171,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public long count(QueryBuilder queryBuilder, Class<T> clazz, String... indexs) throws Exception;
+    long count(QueryBuilder queryBuilder, Class<T> clazz, String... indexs) throws Exception;
 
     /**
      * 支持分页、高亮、排序的查询
@@ -181,7 +181,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public PageList<T> search(QueryBuilder queryBuilder, PageSortHighLight pageSortHighLight, Class<T> clazz) throws Exception;
+    PageList<T> search(QueryBuilder queryBuilder, PageSortHighLight pageSortHighLight, Class<T> clazz) throws Exception;
 
 
     /**
@@ -192,7 +192,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public PageList<T> search(QueryBuilder queryBuilder, PageSortHighLight pageSortHighLight, Class<T> clazz, String... indexs) throws Exception;
+    PageList<T> search(QueryBuilder queryBuilder, PageSortHighLight pageSortHighLight, Class<T> clazz, String... indexs) throws Exception;
 
 
 
@@ -203,7 +203,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public List<T> scroll(QueryBuilder queryBuilder, Class<T> clazz) throws Exception;
+    List<T> scroll(QueryBuilder queryBuilder, Class<T> clazz) throws Exception;
 
     /**
      * scroll方式查询
@@ -214,7 +214,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public List<T> scroll(QueryBuilder queryBuilder, Class<T> clazz, long time, String... indexs) throws Exception;
+    List<T> scroll(QueryBuilder queryBuilder, Class<T> clazz, long time, String... indexs) throws Exception;
 
     /**
      * Template方式搜索，Template已经保存在script目录下
@@ -226,7 +226,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      */
     @Deprecated
-    public List<T> searchTemplate(Map<String, Object> template_params, String templateName, Class<T> clazz) throws Exception;
+    List<T> searchTemplate(Map<String, Object> template_params, String templateName, Class<T> clazz) throws Exception;
 
     /**
      * Template方式搜索，Template内容以参数方式传入
@@ -238,7 +238,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      */
     @Deprecated
-    public List<T> searchTemplateBySource(Map<String, Object> template_params, String templateSource, Class<T> clazz) throws Exception;
+    List<T> searchTemplateBySource(Map<String, Object> template_params, String templateSource, Class<T> clazz) throws Exception;
 
     /**
      * 保存Template
@@ -250,7 +250,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      */
     @Deprecated
-    public List<T> saveTemplate(String templateName, String templateSource, Class<T> clazz) throws Exception;
+    List<T> saveTemplate(String templateName, String templateSource, Class<T> clazz) throws Exception;
 
     /**
      * 搜索建议
@@ -260,7 +260,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public List<String> completionSuggest(String fieldName, String fieldValue, Class<T> clazz) throws Exception;
+    List<String> completionSuggest(String fieldName, String fieldValue, Class<T> clazz) throws Exception;
 
 
     /**
@@ -272,7 +272,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public List<String> completionSuggest(String fieldName, String fieldValue, Class<T> clazz, String... indexs) throws Exception;
+    List<String> completionSuggest(String fieldName, String fieldValue, Class<T> clazz, String... indexs) throws Exception;
 
     /**
      * 根据ID查询
@@ -281,7 +281,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public T getById(M id, Class<T> clazz) throws Exception;
+    T getById(M id, Class<T> clazz) throws Exception;
 
     /**
      * 根据ID列表批量查询
@@ -290,7 +290,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public List<T> mgetById(M[] ids, Class<T> clazz) throws Exception;
+    List<T> mgetById(M[] ids, Class<T> clazz) throws Exception;
 
     /**
      * id数据是否存在
@@ -298,7 +298,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @param clazz
      * @return
      */
-    public boolean exists(M id, Class<T> clazz) throws Exception;
+    boolean exists(M id, Class<T> clazz) throws Exception;
 
     /**
      * 普通聚合查询
@@ -309,7 +309,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @param clazz
      * @return
      */
-    public Map aggs(String metricName, AggsType aggsType, QueryBuilder queryBuilder, Class<T> clazz, String bucketName) throws Exception;
+    Map aggs(String metricName, AggsType aggsType, QueryBuilder queryBuilder, Class<T> clazz, String bucketName) throws Exception;
 
 
     /**
@@ -323,7 +323,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public Map aggs(String metricName, AggsType aggsType, QueryBuilder queryBuilder, Class<T> clazz, String bucketName, String... indexs) throws Exception;
+    Map aggs(String metricName, AggsType aggsType, QueryBuilder queryBuilder, Class<T> clazz, String bucketName, String... indexs) throws Exception;
 
     /**
      * 以aggstypes的方式metric度量
@@ -334,7 +334,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public double aggs(String metricName, AggsType aggsType, QueryBuilder queryBuilder, Class<T> clazz) throws Exception;
+    double aggs(String metricName, AggsType aggsType, QueryBuilder queryBuilder, Class<T> clazz) throws Exception;
 
     /**
      * 以aggstypes的方式metric度量
@@ -346,7 +346,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public double aggs(String metricName, AggsType aggsType, QueryBuilder queryBuilder, Class<T> clazz, String... indexs) throws Exception;
+    double aggs(String metricName, AggsType aggsType, QueryBuilder queryBuilder, Class<T> clazz, String... indexs) throws Exception;
 
 
     /**
@@ -360,7 +360,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public List<Down> aggswith2level(String metricName, AggsType aggsType, QueryBuilder queryBuilder, Class<T> clazz, String[] bucketNames) throws Exception;
+    List<Down> aggswith2level(String metricName, AggsType aggsType, QueryBuilder queryBuilder, Class<T> clazz, String[] bucketNames) throws Exception;
 
 
     /**
@@ -374,7 +374,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public List<Down> aggswith2level(String metricName, AggsType aggsType, QueryBuilder queryBuilder, Class<T> clazz, String[] bucketNames, String... indexs) throws Exception;
+    List<Down> aggswith2level(String metricName, AggsType aggsType, QueryBuilder queryBuilder, Class<T> clazz, String[] bucketNames, String... indexs) throws Exception;
 
 
     /**
@@ -385,7 +385,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public Stats statsAggs(String metricName, QueryBuilder queryBuilder, Class<T> clazz) throws Exception;
+    Stats statsAggs(String metricName, QueryBuilder queryBuilder, Class<T> clazz) throws Exception;
 
     /**
      * 统计聚合metric度量
@@ -396,7 +396,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public Stats statsAggs(String metricName, QueryBuilder queryBuilder, Class<T> clazz, String... indexs) throws Exception;
+    Stats statsAggs(String metricName, QueryBuilder queryBuilder, Class<T> clazz, String... indexs) throws Exception;
 
     /**
      * 以bucket分组，统计聚合metric度量
@@ -407,7 +407,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public Map<String,Stats> statsAggs(String metricName, QueryBuilder queryBuilder, Class<T> clazz, String bucketName) throws Exception;
+    Map<String,Stats> statsAggs(String metricName, QueryBuilder queryBuilder, Class<T> clazz, String bucketName) throws Exception;
 
     /**
      * 以bucket分组，统计聚合metric度量
@@ -419,7 +419,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public Map<String,Stats> statsAggs(String metricName, QueryBuilder queryBuilder, Class<T> clazz, String bucketName, String... indexs) throws Exception;
+    Map<String,Stats> statsAggs(String metricName, QueryBuilder queryBuilder, Class<T> clazz, String bucketName, String... indexs) throws Exception;
 
 
     /**
@@ -430,7 +430,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public Aggregations aggs(AggregationBuilder aggregationBuilder, QueryBuilder queryBuilder, Class<T> clazz) throws Exception;
+    Aggregations aggs(AggregationBuilder aggregationBuilder, QueryBuilder queryBuilder, Class<T> clazz) throws Exception;
 
     /**
      * 通用（定制）聚合基础方法
@@ -441,7 +441,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public Aggregations aggs(AggregationBuilder aggregationBuilder, QueryBuilder queryBuilder, Class<T> clazz, String... indexs) throws Exception;
+    Aggregations aggs(AggregationBuilder aggregationBuilder, QueryBuilder queryBuilder, Class<T> clazz, String... indexs) throws Exception;
 
 
     /**
@@ -452,7 +452,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public long cardinality(String metricName, QueryBuilder queryBuilder, Class<T> clazz) throws Exception;
+    long cardinality(String metricName, QueryBuilder queryBuilder, Class<T> clazz) throws Exception;
 
     /**
      * 基数查询
@@ -463,7 +463,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public long cardinality(String metricName, QueryBuilder queryBuilder, Class<T> clazz, String... indexs) throws Exception;
+    long cardinality(String metricName, QueryBuilder queryBuilder, Class<T> clazz, String... indexs) throws Exception;
 
     /**
      * 百分比聚合 默认聚合见Constant.DEFAULT_PERCSEGMENT
@@ -473,7 +473,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public Map percentilesAggs(String metricName, QueryBuilder queryBuilder, Class<T> clazz) throws Exception;
+    Map percentilesAggs(String metricName, QueryBuilder queryBuilder, Class<T> clazz) throws Exception;
 
     /**
      * 以百分比聚合
@@ -485,7 +485,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public Map percentilesAggs(String metricName, QueryBuilder queryBuilder, Class<T> clazz, double[] customSegment, String... indexs) throws Exception;
+    Map percentilesAggs(String metricName, QueryBuilder queryBuilder, Class<T> clazz, double[] customSegment, String... indexs) throws Exception;
 
 
 
@@ -498,7 +498,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public Map percentileRanksAggs(String metricName, QueryBuilder queryBuilder, Class<T> clazz, double[] customSegment) throws Exception;
+    Map percentileRanksAggs(String metricName, QueryBuilder queryBuilder, Class<T> clazz, double[] customSegment) throws Exception;
 
     /**
      * 以百分等级聚合 (统计在多少数值之内占比多少)
@@ -510,7 +510,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public Map percentileRanksAggs(String metricName, QueryBuilder queryBuilder, Class<T> clazz, double[] customSegment, String... indexs) throws Exception;
+    Map percentileRanksAggs(String metricName, QueryBuilder queryBuilder, Class<T> clazz, double[] customSegment, String... indexs) throws Exception;
 
 
     /**
@@ -524,7 +524,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public Map filterAggs(String metricName, AggsType aggsType, QueryBuilder queryBuilder, Class<T> clazz, FiltersAggregator.KeyedFilter[] filters) throws Exception;
+    Map filterAggs(String metricName, AggsType aggsType, QueryBuilder queryBuilder, Class<T> clazz, FiltersAggregator.KeyedFilter[] filters) throws Exception;
 
     /**
      * 过滤器聚合
@@ -537,7 +537,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public Map filterAggs(String metricName, AggsType aggsType, QueryBuilder queryBuilder, Class<T> clazz, FiltersAggregator.KeyedFilter[] filters, String... indexs) throws Exception;
+    Map filterAggs(String metricName, AggsType aggsType, QueryBuilder queryBuilder, Class<T> clazz, FiltersAggregator.KeyedFilter[] filters, String... indexs) throws Exception;
 
 
     /**
@@ -551,7 +551,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public Map histogramAggs(String metricName, AggsType aggsType, QueryBuilder queryBuilder, Class<T> clazz, String bucketName, double interval) throws Exception;
+    Map histogramAggs(String metricName, AggsType aggsType, QueryBuilder queryBuilder, Class<T> clazz, String bucketName, double interval) throws Exception;
 
 
     /**
@@ -566,7 +566,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public Map histogramAggs(String metricName, AggsType aggsType, QueryBuilder queryBuilder, Class<T> clazz, String bucketName, double interval, String... indexs) throws Exception;
+    Map histogramAggs(String metricName, AggsType aggsType, QueryBuilder queryBuilder, Class<T> clazz, String bucketName, double interval, String... indexs) throws Exception;
 
 
     /**
@@ -580,7 +580,7 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public Map dateHistogramAggs(String metricName, AggsType aggsType, QueryBuilder queryBuilder, Class<T> clazz, String bucketName, DateHistogramInterval interval) throws Exception;
+    Map dateHistogramAggs(String metricName, AggsType aggsType, QueryBuilder queryBuilder, Class<T> clazz, String bucketName, DateHistogramInterval interval) throws Exception;
 
     /**
      * 日期直方图聚合
@@ -594,5 +594,5 @@ public interface ElasticsearchTemplate<T,M> {
      * @return
      * @throws Exception
      */
-    public Map dateHistogramAggs(String metricName, AggsType aggsType, QueryBuilder queryBuilder, Class<T> clazz, String bucketName, DateHistogramInterval interval, String... indexs) throws Exception;
+    Map dateHistogramAggs(String metricName, AggsType aggsType, QueryBuilder queryBuilder, Class<T> clazz, String bucketName, DateHistogramInterval interval, String... indexs) throws Exception;
 }

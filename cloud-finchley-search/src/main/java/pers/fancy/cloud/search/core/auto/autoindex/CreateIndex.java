@@ -23,6 +23,7 @@ import java.util.Map;
  **/
 @Configuration
 public class CreateIndex implements ApplicationListener, ApplicationContextAware {
+
     @Autowired
     ElasticsearchIndex elasticsearchIndex;
     private Logger logger = LoggerFactory.getLogger(this.getClass());

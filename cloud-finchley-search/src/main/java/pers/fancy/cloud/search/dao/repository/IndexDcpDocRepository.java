@@ -38,6 +38,7 @@ public class IndexDcpDocRepository {
         IndexRequest indexRequest = new IndexRequest(ElasticSearchInit.INDEX_DCP,
                 ElasticSearchInit.INDEX_DCP_DOC,dcpDoc.getId()).source(json);
         esClient.index(indexRequest);
+
     }
 
     /**

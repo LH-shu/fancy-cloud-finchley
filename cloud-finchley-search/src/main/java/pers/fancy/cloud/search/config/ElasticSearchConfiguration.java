@@ -16,6 +16,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 
+/**
+ * @author 李醴茝
+ */
 @Slf4j
 @Configuration
 @Component
@@ -78,9 +81,5 @@ public class ElasticSearchConfiguration {
         RestClient restClient =   builder.build();
         return restClient;
 
-        /*
-        RestClient restClient =  RestClient.builder(new HttpHost(address, port, "http")).build();
-        return restClient;
-        */
     }
 }

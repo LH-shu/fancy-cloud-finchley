@@ -104,30 +104,30 @@ public class SearchDcpDocServiceImpl implements SearchDcpDocService {
 
 
         //按时间查询
-        if (StringUtils.isNotEmpty(searchConditionDto.getTimeType())) {
-            Date nowDate = new Date();
-            Date earlyInTheDay = CommonDateUtils.getEarlyInTheDay(nowDate);
-            Date lateInTheDay = CommonDateUtils.getLateInTheDay(nowDate);
-
-            Date dateStart = null;
-            Date dateEnd = lateInTheDay;
-            if (SearchTimeTypeEnum.ONEDAY.name().equals(searchConditionDto.getTimeType())) {
-                dateStart = earlyInTheDay;
-            }
-            if (SearchTimeTypeEnum.ONEWEEK.name().equals(searchConditionDto.getTimeType())) {
-                dateStart = CommonDateUtils.add(earlyInTheDay, CommonDateUtils.TimeUnit.WEEK_OF_MONTH, -1);
-            }
-            if (SearchTimeTypeEnum.ONEMONTH.name().equals(searchConditionDto.getTimeType())) {
-                dateStart = CommonDateUtils.add(earlyInTheDay, CommonDateUtils.TimeUnit.MONTH, -1);
-            }
-            if (SearchTimeTypeEnum.ONEYEAR.name().equals(searchConditionDto.getTimeType())) {
-                dateStart = CommonDateUtils.add(earlyInTheDay, CommonDateUtils.TimeUnit.YEAR, -1);
-            }
-            RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery("createTime");
-            rangeQueryBuilder.gte(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(dateStart));
-            rangeQueryBuilder.lte(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(dateEnd));
-            boolBuilder.must(rangeQueryBuilder);
-        }
+//        if (StringUtils.isNotEmpty(searchConditionDto.getTimeType())) {
+//            Date nowDate = new Date();
+//            Date earlyInTheDay = CommonDateUtils.getEarlyInTheDay(nowDate);
+//            Date lateInTheDay = CommonDateUtils.getLateInTheDay(nowDate);
+//
+//            Date dateStart = null;
+//            Date dateEnd = lateInTheDay;
+//            if (SearchTimeTypeEnum.ONEDAY.name().equals(searchConditionDto.getTimeType())) {
+//                dateStart = earlyInTheDay;
+//            }
+//            if (SearchTimeTypeEnum.ONEWEEK.name().equals(searchConditionDto.getTimeType())) {
+//                dateStart = CommonDateUtils.add(earlyInTheDay, CommonDateUtils.TimeUnit.WEEK_OF_MONTH, -1);
+//            }
+//            if (SearchTimeTypeEnum.ONEMONTH.name().equals(searchConditionDto.getTimeType())) {
+//                dateStart = CommonDateUtils.add(earlyInTheDay, CommonDateUtils.TimeUnit.MONTH, -1);
+//            }
+//            if (SearchTimeTypeEnum.ONEYEAR.name().equals(searchConditionDto.getTimeType())) {
+//                dateStart = CommonDateUtils.add(earlyInTheDay, CommonDateUtils.TimeUnit.YEAR, -1);
+//            }
+//            RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery("createTime");
+//            rangeQueryBuilder.gte(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(dateStart));
+//            rangeQueryBuilder.lte(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(dateEnd));
+//            boolBuilder.must(rangeQueryBuilder);
+//        }
 
         //密级查询
         if(searchConditionDto.getSecurity()!=null && !searchConditionDto.getSecurity().isEmpty()){

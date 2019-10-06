@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * description: Elasticsearch基础功能组件
  **/
-interface ElasticsearchTemplate<T,M> {
+public interface ElasticsearchTemplate<T,M> {
     /**
      * 通过Low Level REST Client 查询
      * https://www.elastic.co/guide/en/elasticsearch/client/java-rest/6.6/java-rest-low-usage-requests.html

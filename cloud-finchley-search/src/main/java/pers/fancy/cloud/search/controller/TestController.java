@@ -2,6 +2,8 @@ package pers.fancy.cloud.search.controller;
 
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.MatchAllQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -14,9 +16,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pers.fancy.cloud.search.core.index.ElasticsearchIndex;
 import pers.fancy.cloud.search.core.repository.*;
+import pers.fancy.cloud.search.core.util.Constant;
 import pers.fancy.cloud.search.core.util.JsonUtils;
 import pers.fancy.cloud.search.model.Main2;
+import pers.fancy.cloud.search.model.Main3;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +34,10 @@ import java.util.List;
 public class TestController {
 
     @Autowired
-    ElasticsearchIndex<Main2> elasticsearchIndex;
+    ElasticsearchIndex elasticsearchIndex;
+
+    @Autowired
+    RestHighLevelClient client;
 
     @GetMapping("test1")
     public void testIndex() throws Exception {
@@ -39,9 +47,20 @@ public class TestController {
         }
     }
 
+    @GetMapping("createIndex")
+    public void createIndex() throws Exception {
+        elasticsearchIndex.createIndex(Main3.class);
+    }
+
+    @GetMapping("dropIndex")
+    public void dropIndex() throws Exception {
+        elasticsearchIndex.dropIndex(Main2.class);
+    }
+
     @Autowired
     ElasticsearchTemplate<Main2,String> elasticsearchTemplate;
 
+    @GetMapping("testsave")
     public void testsave() throws Exception {
         Main2 main1 = new Main2();
         main1.setProposal_no("1111");
@@ -58,6 +77,7 @@ public class TestController {
         elasticsearchTemplate.save(Arrays.asList(main1,main2,main3,main4));
     }
 
+    @GetMapping("testsave2")
     public void testsave2() throws Exception {
         Main2 main1 = new Main2();
         main1.setProposal_no("main1123123123");
@@ -69,6 +89,7 @@ public class TestController {
     }
 
 
+    @GetMapping("testsavelist")
     public void testsavelist() throws Exception {
         List<Main2> list = new ArrayList<>();
         Main2 main1 = new Main2();
@@ -137,6 +158,7 @@ public class TestController {
 
     }
 
+    @GetMapping("testExists")
     public void testExists()throws Exception {
         Main2 main1 = new Main2();
         main1.setProposal_no("main1");
@@ -165,6 +187,7 @@ public class TestController {
 
 
 
+    @GetMapping("testSearch")
     public void testSearch()throws Exception {
         List<Main2> main2List = elasticsearchTemplate.search(new MatchAllQueryBuilder(),Main2.class);
         main2List.forEach(main2 -> System.out.println(main2));
@@ -172,13 +195,20 @@ public class TestController {
 
 
 
-    public void ttttt(){
+    @GetMapping("testPage")
+    public void testPage() throws IOException {
         SearchRequest searchRequest = new SearchRequest("index");
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(new MatchAllQueryBuilder());
-//        searchSourceBuilder.from(0);
-//        searchSourceBuilder.size(Constant.DEFALT_PAGE_SIZE);
-        searchRequest.source(searchSourceBuilder);
+        searchSourceBuilder.from(0);
+        searchSourceBuilder.size(2);
+        SearchResponse searchResponse = client.search(searchRequest.source(searchSourceBuilder), RequestOptions.DEFAULT);
+        SearchHits hits = searchResponse.getHits();
+        SearchHit[] searchHits = hits.getHits();
+        for (SearchHit hit : searchHits) {
+            Main2 t = JsonUtils.string2Obj(hit.getSourceAsString(), Main2.class);
+            System.out.println(t.toString());
+        }
     }
 
     public void testsaveHighlight() throws Exception {
@@ -191,6 +221,7 @@ public class TestController {
         elasticsearchTemplate.save(main1);
     }
 
+    @GetMapping("testSearch2")
     public void testSearch2()throws Exception {
         int currentPage = 1;
         int pageSize = 10;
@@ -205,7 +236,7 @@ public class TestController {
         //可以单独定义高亮的格式
         //new HighLight().setPreTag("<em>");
         //new HighLight().setPostTag("</em>");
-        PageList<Main2> pageList = new PageList<>();
+        PageList<Main2> pageList;
 //        pageList = elasticsearchTemplate.search(QueryBuilders.matchQuery("appli_name","我"), psh, Main2.class);
         pageList = elasticsearchTemplate.search(new MatchAllQueryBuilder(), psh, Main2.class);
         pageList.getList().forEach(main2 -> System.out.println(main2));
@@ -258,6 +289,7 @@ public class TestController {
         listResult.forEach(main -> System.out.println(main));
     }
 
+    @GetMapping("testQueryBuilder")
     public void testQueryBuilder() throws Exception {
 //        QueryBuilder queryBuilder = QueryBuilders.termQuery("appli_name.keyword","456");
         //中国好男儿

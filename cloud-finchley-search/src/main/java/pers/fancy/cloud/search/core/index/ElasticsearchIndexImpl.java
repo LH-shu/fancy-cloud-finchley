@@ -154,9 +154,10 @@ public class ElasticsearchIndexImpl<T> implements ElasticsearchIndex<T> {
     @Override
     public void dropIndex(Class<T> clazz) throws Exception {
         MetaData metaData = IndexTools.getIndexType(clazz);
-        String indexname = metaData.getIndexname();
+        String indexname = "testindex";
         DeleteIndexRequest request = new DeleteIndexRequest(indexname);
-        client.indices().delete(request, RequestOptions.DEFAULT);
+        Object result = client.indices().delete(request,RequestOptions.DEFAULT);
+        System.out.println(result.toString());
     }
 
     @Override

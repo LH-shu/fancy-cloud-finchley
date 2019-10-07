@@ -20,6 +20,11 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
+/**
+ * 搜索模块启动类
+ *
+ * @author LiLiChai
+ */
 @EnableESTools
 @EnableDiscoveryClient
 @EnableSwagger2

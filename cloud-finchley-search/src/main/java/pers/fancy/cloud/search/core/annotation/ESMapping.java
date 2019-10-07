@@ -7,10 +7,7 @@ import pers.fancy.cloud.search.core.enums.DataType;
 import java.lang.annotation.*;
 
 /**
- * program: esdemo
- * description: 对应索引结构mapping的注解，在es entity field上添加
- * author: X-Pacific zhang
- * create: 2019-01-25 16:57
+ * 对应索引结构mapping的注解，在es entity field上添加
  **/
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD})
@@ -20,26 +17,32 @@ public @interface ESMapping {
      * 数据类型（包含 关键字类型）
      */
     DataType datatype() default DataType.text_type;
+
     /**
      * 间接关键字
      */
     boolean keyword() default true;
+
     /**
      * 关键字忽略字数
      */
     int ignore_above() default 256;
+
     /**
      * 是否支持autocomplete，高效全文搜索提示
      */
     boolean autocomplete() default false;
+
     /**
      * 是否支持suggest，高效前缀搜索提示
      */
     boolean suggest() default false;
+
     /**
      * 索引分词器设置（研究类型）
      */
     Analyzer analyzer() default Analyzer.standard;
+
     /**
      * 搜索内容分词器设置
      */

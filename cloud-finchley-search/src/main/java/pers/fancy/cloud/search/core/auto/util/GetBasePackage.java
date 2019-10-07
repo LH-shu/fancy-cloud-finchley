@@ -9,11 +9,13 @@ import java.util.*;
 import java.util.stream.Stream;
 
 /**
- * description: 获取basepackage列表
- **/
+ * 获取basepackage列表
+ *
+ * @author LiLiChai
+ */
 public class GetBasePackage {
     //缓存的entitypaths
-    private static Map<Class,List<String>> entityPathsMap = null;
+    private static Map<Class, List<String>> entityPathsMap = null;
 
     static {
         entityPathsMap = new HashMap<>();
@@ -28,10 +30,11 @@ public class GetBasePackage {
 
     /**
      * 获取repository的路径，如果获取不到就取main启动路径
+     *
      * @param annotationMetadata
      * @return
      */
-    public Stream<String> getBasePackage(AnnotationMetadata annotationMetadata){
+    public Stream<String> getBasePackage(AnnotationMetadata annotationMetadata) {
         Map<String, Object> annotationAttributes = annotationMetadata.getAnnotationAttributes(annotation.getName());
         AnnotationAttributes attributes = new AnnotationAttributes(annotationAttributes);
         EnableESTools.gainAnnoInfo(attributes);
@@ -41,20 +44,21 @@ public class GetBasePackage {
         //没配注解参数
         if (value.length == 0 && basePackages.length == 0) {
             String className = annotationMetadata.getClassName();
-            return  Stream.of(ClassUtils.getPackageName(className));
+            return Stream.of(ClassUtils.getPackageName(className));
         }
         //配了注解
-        return Stream.of(Arrays.asList(value),Arrays.asList(basePackages),Arrays.asList(entityPaths)).flatMap(list -> list.stream());
+        return Stream.of(Arrays.asList(value), Arrays.asList(basePackages), Arrays.asList(entityPaths)).flatMap(list -> list.stream());
     }
 
     /**
      * 获取实体类的路径，如果获取不到就取main启动路径
+     *
      * @param annotationMetadata
      * @return
      */
-    public Stream<String> getEntityPackage(AnnotationMetadata annotationMetadata){
+    public Stream<String> getEntityPackage(AnnotationMetadata annotationMetadata) {
         //缓存entitypaths
-        if(entityPathsMap.containsKey(annotation)){
+        if (entityPathsMap.containsKey(annotation)) {
             return Stream.of(entityPathsMap.get(annotation)).flatMap(list -> list.stream());
         }
         Map<String, Object> annotationAttributes = annotationMetadata.getAnnotationAttributes(annotation.getName());
@@ -63,10 +67,10 @@ public class GetBasePackage {
         //没配注解参数
         if (entityPaths.length == 0) {
             String className = annotationMetadata.getClassName();
-            entityPathsMap.put(annotation,Arrays.asList(ClassUtils.getPackageName(className)));
-            return  Stream.of(ClassUtils.getPackageName(className));
+            entityPathsMap.put(annotation, Arrays.asList(ClassUtils.getPackageName(className)));
+            return Stream.of(ClassUtils.getPackageName(className));
         }
-        entityPathsMap.put(annotation,Arrays.asList(entityPaths));
+        entityPathsMap.put(annotation, Arrays.asList(entityPaths));
         //配了注解
         return Stream.of(Arrays.asList(entityPaths)).flatMap(list -> list.stream());
     }

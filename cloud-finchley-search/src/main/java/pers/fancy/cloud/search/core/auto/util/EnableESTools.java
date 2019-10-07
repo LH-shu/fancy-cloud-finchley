@@ -3,14 +3,16 @@ package pers.fancy.cloud.search.core.auto.util;
 import org.springframework.core.annotation.AnnotationAttributes;
 
 /**
- **/
+ * @author LiLiChai
+ */
 public class EnableESTools {
+
     private static String[] basePackages;
     private static String[] value;
     private static String[] entityPath;
     private static boolean printregmsg = false;
 
-    public static void gainAnnoInfo(AnnotationAttributes attributes ){
+    public static void gainAnnoInfo(AnnotationAttributes attributes) {
         basePackages = attributes.getStringArray("basePackages");
         value = attributes.getStringArray("value");
         entityPath = attributes.getStringArray("entityPath");

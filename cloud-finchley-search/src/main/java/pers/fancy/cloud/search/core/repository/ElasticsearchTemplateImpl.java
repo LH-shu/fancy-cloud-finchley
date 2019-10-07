@@ -1,5 +1,6 @@
 package pers.fancy.cloud.search.core.repository;
 
+import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.index.reindex.BulkByScrollResponse;
 import org.elasticsearch.index.reindex.DeleteByQueryRequest;
 import org.elasticsearch.search.aggregations.metrics.*;
@@ -60,8 +61,6 @@ import org.elasticsearch.search.suggest.Suggest;
 import org.elasticsearch.search.suggest.SuggestBuilder;
 import org.elasticsearch.search.suggest.completion.CompletionSuggestion;
 import org.elasticsearch.search.suggest.completion.CompletionSuggestionBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -75,11 +74,13 @@ import java.util.*;
 
 
 /**
- * description: Elasticsearch基础功能组件实现类
- **/
+ * Elasticsearch基础功能组件实现类
+ *
+ * @author LiLiChai
+ */
+@Slf4j
 @Component
 public class ElasticsearchTemplateImpl<T, M> implements ElasticsearchTemplate<T, M> {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     RestHighLevelClient client;
@@ -104,12 +105,12 @@ public class ElasticsearchTemplateImpl<T, M> implements ElasticsearchTemplate<T,
         }
         String source = JsonUtils.obj2String(t);
         indexRequest.source(source, XContentType.JSON);
-        IndexResponse indexResponse = null;
+        IndexResponse indexResponse;
         indexResponse = client.index(indexRequest, RequestOptions.DEFAULT);
         if (indexResponse.getResult() == DocWriteResponse.Result.CREATED) {
-            logger.info("INDEX CREATE SUCCESS");
+            log.info("INDEX CREATE SUCCESS");
         } else if (indexResponse.getResult() == DocWriteResponse.Result.UPDATED) {
-            logger.info("INDEX UPDATE SUCCESS");
+            log.info("INDEX UPDATE SUCCESS");
         } else {
             return false;
         }
@@ -172,9 +173,9 @@ public class ElasticsearchTemplateImpl<T, M> implements ElasticsearchTemplate<T,
         UpdateResponse updateResponse = null;
         updateResponse = client.update(updateRequest, RequestOptions.DEFAULT);
         if (updateResponse.getResult() == DocWriteResponse.Result.CREATED) {
-            logger.info("INDEX CREATE SUCCESS");
+            log.info("INDEX CREATE SUCCESS");
         } else if (updateResponse.getResult() == DocWriteResponse.Result.UPDATED) {
-            logger.info("INDEX UPDATE SUCCESS");
+            log.info("INDEX UPDATE SUCCESS");
         } else {
             return false;
         }
@@ -189,7 +190,7 @@ public class ElasticsearchTemplateImpl<T, M> implements ElasticsearchTemplate<T,
         if (queryBuilder == null) {
             throw new NullPointerException();
         }
-        if(Tools.getESId(t) == null || "".equals(Tools.getESId(t))) {
+        if (Tools.getESId(t) == null || "".equals(Tools.getESId(t))) {
             PageSortHighLight psh = new PageSortHighLight(1, limitcount);
             psh.setHighLight(null);
             PageList pageList = this.search(queryBuilder, psh, clazz, indexname);
@@ -200,21 +201,21 @@ public class ElasticsearchTemplateImpl<T, M> implements ElasticsearchTemplate<T,
                 new Thread(() -> {
                     try {
                         batchUpdate(pageList.getList(), indexname, indextype, t);
-                        logger.info("asyn batch finished update");
+                        log.info("asyn batch finished update");
                     } catch (Exception e) {
-                        logger.error("asyn batch update fail", e);
+                        log.error("asyn batch update fail", e);
                     }
                 }).start();
                 return null;
             } else {
                 return batchUpdate(pageList.getList(), indexname, indextype, t);
             }
-        }else{
+        } else {
             throw new Exception("批量更新请不要给主键传值");
         }
     }
 
-    private BulkResponse batchUpdate(List<T> list, String indexname, String indextype,T tot) throws Exception {
+    private BulkResponse batchUpdate(List<T> list, String indexname, String indextype, T tot) throws Exception {
         Map map = Tools.getFieldValue(tot);
         BulkRequest rrr = new BulkRequest();
         for (int i = 0; i < list.size(); i++) {
@@ -245,7 +246,7 @@ public class ElasticsearchTemplateImpl<T, M> implements ElasticsearchTemplate<T,
         DeleteResponse deleteResponse = null;
         deleteResponse = client.delete(deleteRequest, RequestOptions.DEFAULT);
         if (deleteResponse.getResult() == DocWriteResponse.Result.DELETED) {
-            logger.info("INDEX DELETE SUCCESS");
+            log.info("INDEX DELETE SUCCESS");
         } else {
             return false;
         }
@@ -288,7 +289,7 @@ public class ElasticsearchTemplateImpl<T, M> implements ElasticsearchTemplate<T,
         searchSourceBuilder.size(Constant.DEFALT_PAGE_SIZE);
         searchRequest.source(searchSourceBuilder);
         if (metaData.isPrintLog()) {
-            logger.info(searchSourceBuilder.toString());
+            log.info(searchSourceBuilder.toString());
         }
         SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
         SearchHits hits = searchResponse.getHits();
@@ -301,17 +302,17 @@ public class ElasticsearchTemplateImpl<T, M> implements ElasticsearchTemplate<T,
     }
 
     @Override
-    public List<T> searchMore(QueryBuilder queryBuilder,int limitSize, Class<T> clazz) throws Exception {
+    public List<T> searchMore(QueryBuilder queryBuilder, int limitSize, Class<T> clazz) throws Exception {
         MetaData metaData = IndexTools.getIndexType(clazz);
         String[] indexname = metaData.getSearchIndexNames();
-        return searchMore(queryBuilder,limitSize,clazz,indexname);
+        return searchMore(queryBuilder, limitSize, clazz, indexname);
     }
 
     @Override
-    public List<T> searchMore(QueryBuilder queryBuilder,int limitSize, Class<T> clazz, String... indexs) throws Exception {
+    public List<T> searchMore(QueryBuilder queryBuilder, int limitSize, Class<T> clazz, String... indexs) throws Exception {
         PageSortHighLight pageSortHighLight = new PageSortHighLight(1, limitSize);
         PageList pageList = search(queryBuilder, pageSortHighLight, clazz, indexs);
-        if(pageList != null){
+        if (pageList != null) {
             return pageList.getList();
         }
         return null;
@@ -443,7 +444,7 @@ public class ElasticsearchTemplateImpl<T, M> implements ElasticsearchTemplate<T,
         SearchRequest searchRequest = new SearchRequest(indexname);
         searchRequest.source(searchSourceBuilder);
         if (metaData.isPrintLog()) {
-            logger.info(searchSourceBuilder.toString());
+            log.info(searchSourceBuilder.toString());
         }
         SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
 
@@ -773,7 +774,7 @@ public class ElasticsearchTemplateImpl<T, M> implements ElasticsearchTemplate<T,
         SearchRequest searchRequest = new SearchRequest(indexname);
         searchRequest.source(searchSourceBuilder);
         if (metaData.isPrintLog()) {
-            logger.info(searchSourceBuilder.toString());
+            log.info(searchSourceBuilder.toString());
         }
         SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
         return searchResponse.getAggregations();
@@ -1121,7 +1122,7 @@ public class ElasticsearchTemplateImpl<T, M> implements ElasticsearchTemplate<T,
         DeleteResponse deleteResponse = null;
         deleteResponse = client.delete(deleteRequest, RequestOptions.DEFAULT);
         if (deleteResponse.getResult() == DocWriteResponse.Result.DELETED) {
-            logger.info("INDEX DELETE SUCCESS");
+            log.info("INDEX DELETE SUCCESS");
         } else {
             return false;
         }
@@ -1177,7 +1178,7 @@ public class ElasticsearchTemplateImpl<T, M> implements ElasticsearchTemplate<T,
         }
         searchRequest.source(searchSourceBuilder);
         if (metaData.isPrintLog()) {
-            logger.info(searchSourceBuilder.toString());
+            log.info(searchSourceBuilder.toString());
         }
         SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
         SearchHits hits = searchResponse.getHits();

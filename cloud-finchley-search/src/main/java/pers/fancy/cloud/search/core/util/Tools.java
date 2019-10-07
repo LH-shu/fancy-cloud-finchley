@@ -11,24 +11,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * description: 工具类
- **/
+ *  工具类
+ *
+ * @author LiLiChai
+ */
 public class Tools {
+
     /**
      * 根据对象中的注解获取ID的字段值
+     *
      * @param obj
      * @return
      */
     public static String getESId(Object obj) throws Exception {
         Field[] fields = obj.getClass().getDeclaredFields();
-        for(Field f : fields){
+        for (Field f : fields) {
             f.setAccessible(true);
             ESID esid = f.getAnnotation(ESID.class);
-            if(esid != null){
+            if (esid != null) {
                 Object value = f.get(obj);
-                if(value == null){
+                if (value == null) {
                     return null;
-                }else{
+                } else {
                     return value.toString();
                 }
             }
@@ -38,16 +42,17 @@ public class Tools {
 
     /**
      * 获取o中所有的字段有值的map组合
+     *
      * @return
      */
     public static Map getFieldValue(Object o) throws IllegalAccessException {
         Map retMap = new HashMap();
         Field[] fs = o.getClass().getDeclaredFields();
-        for(int i = 0;i < fs.length;i++){
+        for (int i = 0; i < fs.length; i++) {
             Field f = fs[i];
             f.setAccessible(true);
-            if(f.get(o) != null){
-                retMap.put(f.getName(),f.get(o) );
+            if (f.get(o) != null) {
+                retMap.put(f.getName(), f.get(o));
             }
         }
         return retMap;
@@ -85,8 +90,8 @@ public class Tools {
         return (Class) params[index];
     }
 
-    public static String arraytostring(String[] strs){
-        if(StringUtils.isEmpty(strs)){
+    public static String arraytostring(String[] strs) {
+        if (StringUtils.isEmpty(strs)) {
             return "";
         }
         StringBuffer sb = new StringBuffer();
@@ -94,19 +99,19 @@ public class Tools {
         return sb.toString();
     }
 
-    public static boolean arrayISNULL(Object[] objs){
-        if(objs == null || objs.length == 0){
+    public static boolean arrayISNULL(Object[] objs) {
+        if (objs == null || objs.length == 0) {
             return true;
         }
         boolean flag = false;
         for (int i = 0; i < objs.length; i++) {
-            if(!StringUtils.isEmpty(objs[i])){
+            if (!StringUtils.isEmpty(objs[i])) {
                 flag = true;
             }
         }
-        if(flag){
+        if (flag) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }

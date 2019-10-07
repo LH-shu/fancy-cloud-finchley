@@ -11,22 +11,27 @@ import java.lang.reflect.Modifier;
 import java.util.*;
 
 /**
- * description: 类对象操作工具类
- **/
+ * 类对象操作工具类
+ *
+ * @author LiLiChai
+ */
 public class BeanTools {
+
     public static Object mapToObject(Map map, Class<?> beanClass) throws Exception {
-        if (map == null)
+
+        if (map == null) {
             return null;
+        }
 
         Object obj = beanClass.newInstance();
 
         Field[] fields = obj.getClass().getDeclaredFields();
         for (Field field : fields) {
-            if(map.get(field.getName()) == null || StringUtils.isEmpty(map.get(field.getName()) )){
+            if (map.get(field.getName()) == null || StringUtils.isEmpty(map.get(field.getName()))) {
                 continue;
             }
             int mod = field.getModifiers();
-            if(Modifier.isStatic(mod) || Modifier.isFinal(mod)){
+            if (Modifier.isStatic(mod) || Modifier.isFinal(mod)) {
                 continue;
             }
             field.setAccessible(true);
@@ -36,7 +41,7 @@ public class BeanTools {
     }
 
     public static Map<String, Object> objectToMap(Object obj) throws Exception {
-        if(obj == null){
+        if (obj == null) {
             return null;
         }
         Map<String, Object> map = new HashMap<>();
@@ -49,7 +54,7 @@ public class BeanTools {
         return map;
     }
 
-    public static String[] getNoValuePropertyNames (Object source) {
+    public static String[] getNoValuePropertyNames(Object source) {
         Assert.notNull(source, "传递的参数对象不能为空");
         final BeanWrapper beanWrapper = new BeanWrapperImpl(source);
         PropertyDescriptor[] pds = beanWrapper.getPropertyDescriptors();
@@ -63,11 +68,15 @@ public class BeanTools {
                 if (Iterable.class.isAssignableFrom(propertyValue.getClass())) {
                     Iterable iterable = (Iterable) propertyValue;
                     Iterator iterator = iterable.iterator();
-                    if (!iterator.hasNext()) noValuePropertySet.add(pd.getName());
+                    if (!iterator.hasNext()) {
+                        noValuePropertySet.add(pd.getName());
+                    }
                 }
                 if (Map.class.isAssignableFrom(propertyValue.getClass())) {
                     Map map = (Map) propertyValue;
-                    if (map.isEmpty()) noValuePropertySet.add(pd.getName());
+                    if (map.isEmpty()) {
+                        noValuePropertySet.add(pd.getName());
+                    }
                 }
             }
         });

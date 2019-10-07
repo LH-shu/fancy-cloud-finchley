@@ -16,12 +16,11 @@ import org.springframework.util.StringUtils;
 /**
  * 自动配置注入restHighLevelClient
  *
- * @author 李醴茝
+ * @author LiLiChai
  */
 @Configuration
-@ComponentScan("org.zxp.esclientrhl")
+@ComponentScan("pers.fancy.cloud.search.core")
 public class ElasticSearchConfiguration {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Value("${elasticsearch.host}")
     private String host;

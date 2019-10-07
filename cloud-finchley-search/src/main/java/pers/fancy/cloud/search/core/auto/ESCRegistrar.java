@@ -24,12 +24,17 @@ import java.util.stream.Stream;
 /**
  * 作用1：将范围内的接口准备作为springbean进行处理（有beanFactory辅助）
  * 作用2：将实体类扫描并托管给spring管理
- **/
+ *
+ * @author LiLiChai
+ */
 @Configuration
-public class ESCRegistrar extends AbstractESCRegister implements BeanFactoryAware,ApplicationContextAware, ImportBeanDefinitionRegistrar, ResourceLoaderAware, EnvironmentAware {
-    private @SuppressWarnings("null") @Nonnull
+public class ESCRegistrar extends AbstractESCRegister implements BeanFactoryAware, ApplicationContextAware, ImportBeanDefinitionRegistrar, ResourceLoaderAware, EnvironmentAware {
+    private @SuppressWarnings("null")
+    @Nonnull
     ResourceLoader resourceLoader;
-    private @SuppressWarnings("null") @Nonnull Environment environment;
+    private @SuppressWarnings("null")
+    @Nonnull
+    Environment environment;
     private ApplicationContext applicationContext;
     private BeanFactory beanFactory;
 
@@ -46,13 +51,14 @@ public class ESCRegistrar extends AbstractESCRegister implements BeanFactoryAwar
 
     /**
      * 模版方法模式
+     *
      * @param annotationMetadata
      * @param registry
      */
     @Override
     public void registerBeanDefinitions(AnnotationMetadata annotationMetadata, BeanDefinitionRegistry registry) {
         //扫描entity
-        new ESIndexProcessor().scan(annotationMetadata,beanFactory,applicationContext);
+        new ESIndexProcessor().scan(annotationMetadata, beanFactory, applicationContext);
         //扫描接口
         super.registerBeanDefinitions(beanFactory, environment, resourceLoader, annotationMetadata, registry);
     }

@@ -10,8 +10,10 @@ import org.springframework.core.type.filter.AnnotationTypeFilter;
 import java.util.Set;
 
 /**
- * description: 扫描ESMetaData的注解的bean（就是es数据结构的实体类）给spring管理
- **/
+ * 扫描ESMetaData的注解的bean（就是es数据结构的实体类）给spring管理
+ *
+ * @author LiLiChai
+ */
 public class ESEntityScanner extends ClassPathBeanDefinitionScanner {
     public ESEntityScanner(BeanDefinitionRegistry registry) {
         super(registry);

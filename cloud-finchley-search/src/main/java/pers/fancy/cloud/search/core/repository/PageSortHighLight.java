@@ -1,10 +1,17 @@
 package pers.fancy.cloud.search.core.repository;
 
+import lombok.Data;
+
 /**
- * description: 分页+高亮对象封装
- **/
+ * 分页+高亮对象封装
+ *
+ * @author 李醴茝
+ */
+@Data
 public class PageSortHighLight {
+
     private int currentPage;
+
     private int pageSize;
     Sort sort = new Sort();
     private HighLight highLight = new HighLight();
@@ -20,35 +27,4 @@ public class PageSortHighLight {
         this.sort = sort;
     }
 
-    public int getCurrentPage() {
-        return currentPage;
-    }
-
-    public void setCurrentPage(int currentPage) {
-        this.currentPage = currentPage;
-    }
-
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public Sort getSort() {
-        return sort;
-    }
-
-    public void setSort(Sort sort) {
-        this.sort = sort;
-    }
-
-    public HighLight getHighLight() {
-        return highLight;
-    }
-
-    public void setHighLight(HighLight highLight) {
-        this.highLight = highLight;
-    }
 }

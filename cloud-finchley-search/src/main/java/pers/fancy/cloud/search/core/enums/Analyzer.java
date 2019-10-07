@@ -3,7 +3,7 @@ package pers.fancy.cloud.search.core.enums;
 /**
  * 分词器类型
  *
- * @author 李醴茝
+ * @author LiLiChai
  */
 public enum Analyzer {
     standard,//支持中文采用的方法为单字切分。他会将词汇单元转换成小写形式，并去除停用词和标点符号

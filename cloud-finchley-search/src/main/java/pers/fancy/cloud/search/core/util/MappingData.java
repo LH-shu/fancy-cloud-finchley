@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * mapping注解对应的数据载体类
  *
- * @author 李醴茝
+ * @author LiLiChai
  */
 @Data
 public class MappingData {

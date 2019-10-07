@@ -2,8 +2,11 @@ package pers.fancy.cloud.search.core.util;
 
 /**
  * description: 常量类
- **/
+ *
+ * @author LiLiChai
+ */
 public class Constant {
+
     //非分页，默认的查询条数
     public static int DEFALT_PAGE_SIZE = 200;
     //搜索建议默认条数
@@ -20,5 +23,5 @@ public class Constant {
     public static int DEFAULT_SCROLL_PERPAGE = 100;
 
 
-    public static double[] DEFAULT_PERCSEGMENT = {50.0,95.0,99.0};
- }
+    public static double[] DEFAULT_PERCSEGMENT = {50.0, 95.0, 99.0};
+}

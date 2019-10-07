@@ -2,12 +2,16 @@ package pers.fancy.cloud.search.core.util;
 
 /**
  * 元数据载体类
+ *
+ * @author LiLiChai
  */
-public class MetaData{
+public class MetaData {
+
     public MetaData(String indexname, String indextype) {
         this.indexname = indexname;
         this.indextype = indextype;
     }
+
     String indexname = "";
     String indextype = "";
 
@@ -34,12 +38,15 @@ public class MetaData{
     public String getIndexname() {
         return indexname;
     }
+
     public void setIndexname(String indexname) {
         this.indexname = indexname;
     }
+
     public String getIndextype() {
         return indextype;
     }
+
     public void setIndextype(String indextype) {
         this.indextype = indextype;
     }

@@ -1,7 +1,6 @@
 package pers.fancy.cloud.search.core.auto.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -23,9 +22,10 @@ import java.io.IOException;
 import java.util.stream.Stream;
 
 /**
- **/
+ * @author LiLiChai
+ */
+@Slf4j
 public abstract class AbstractESCRegister {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public void registerBeanDefinitions(BeanFactory factory, Environment environment, ResourceLoader resourceLoader, AnnotationMetadata annotationMetadata, BeanDefinitionRegistry registry) {
         getCandidates(annotationMetadata, registry, environment, resourceLoader).forEach(beanDefinition -> {
@@ -37,9 +37,9 @@ public abstract class AbstractESCRegister {
             BeanDefinition bd = beanDefinitionBuilder.getRawBeanDefinition();
             //生成beanname
             String beanName = beanClassName.substring(beanClassName.lastIndexOf(".") + 1);
-            if(EnableESTools.isPrintregmsg()){
-                logger.info("generate ESCRegistrar beanClassName:" + beanClassName);
-                logger.info("generate ESCRegistrar beanName:" + beanName);
+            if (EnableESTools.isPrintregmsg()) {
+                log.info("generate ESCRegistrar beanClassName:" + beanClassName);
+                log.info("generate ESCRegistrar beanName:" + beanName);
             }
             BeanDefinitionRegistry beanDefinitionRegistry = (BeanDefinitionRegistry) factory;
             //注册bean  beanName是代理bean的名字
@@ -63,6 +63,7 @@ public abstract class AbstractESCRegister {
 
     /**
      * 必须子类实现，autoconfig方式不同
+     *
      * @param annotationMetadata
      * @return
      */

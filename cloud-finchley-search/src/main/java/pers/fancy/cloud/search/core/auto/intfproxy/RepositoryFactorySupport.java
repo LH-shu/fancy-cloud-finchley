@@ -27,8 +27,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * description: 用于生成ESCRepository的代理bean
- **/
+ * 用于生成ESCRepository的代理bean
+ *
+ * @author LiLiChai
+ */
 public class RepositoryFactorySupport<T extends ESCRepository<S, ID>, S, ID> implements ApplicationContextAware, ResourceLoaderAware, InitializingBean, FactoryBean<T>, BeanClassLoaderAware,
         BeanFactoryAware, ApplicationEventPublisherAware {
     private Logger logger = LoggerFactory.getLogger(this.getClass());

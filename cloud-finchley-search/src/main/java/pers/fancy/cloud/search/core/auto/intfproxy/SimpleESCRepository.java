@@ -16,19 +16,20 @@ import java.util.List;
 import java.util.Map;
 
 /**
- **/
-public class SimpleESCRepository<T,M> implements ESCRepository<T,M> {
+ * @author LiLiChai
+ */
+public class SimpleESCRepository<T, M> implements ESCRepository<T, M> {
     private Class<T> domainClass;
     private Class<M> idClass;
 
     private ApplicationContext applicationContext;
     private ElasticsearchTemplate elasticsearchTemplate = null;
 
-    public SimpleESCRepository(ApplicationContext applicationContext){
+    public SimpleESCRepository(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 
-    private ElasticsearchTemplate getElasticsearchTemplate(){
+    private ElasticsearchTemplate getElasticsearchTemplate() {
         return applicationContext.getBean(ElasticsearchTemplate.class);
     }
 
@@ -69,7 +70,7 @@ public class SimpleESCRepository<T,M> implements ESCRepository<T,M> {
 
     @Override
     public T getById(M id) throws Exception {
-        return (T)getElasticsearchTemplate().getById(id, domainClass);
+        return (T) getElasticsearchTemplate().getById(id, domainClass);
     }
 
     @Override
@@ -94,7 +95,7 @@ public class SimpleESCRepository<T,M> implements ESCRepository<T,M> {
 
     @Override
     public List<T> searchMore(QueryBuilder queryBuilder, int limitSize) throws Exception {
-        return getElasticsearchTemplate().searchMore(queryBuilder,limitSize,domainClass);
+        return getElasticsearchTemplate().searchMore(queryBuilder, limitSize, domainClass);
     }
 
     @Override
@@ -104,7 +105,7 @@ public class SimpleESCRepository<T,M> implements ESCRepository<T,M> {
 
     @Override
     public Map aggs(String metricName, AggsType aggsType, QueryBuilder queryBuilder, String bucketName) throws Exception {
-        return getElasticsearchTemplate().aggs(metricName, aggsType, queryBuilder, domainClass,bucketName);
+        return getElasticsearchTemplate().aggs(metricName, aggsType, queryBuilder, domainClass, bucketName);
     }
 
 
